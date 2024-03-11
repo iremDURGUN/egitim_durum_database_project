@@ -1,0 +1,406 @@
+USE [master]
+GO
+/****** Object:  Database [egitimDurum]    Script Date: 11.03.2024 15:59:00 ******/
+CREATE DATABASE [egitimDurum]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'egitimDurum', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\egitimDurum.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'egitimDurum_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\egitimDurum_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [egitimDurum] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [egitimDurum].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [egitimDurum] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [egitimDurum] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [egitimDurum] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [egitimDurum] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [egitimDurum] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [egitimDurum] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [egitimDurum] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [egitimDurum] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [egitimDurum] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [egitimDurum] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [egitimDurum] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [egitimDurum] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [egitimDurum] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [egitimDurum] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [egitimDurum] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [egitimDurum] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [egitimDurum] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [egitimDurum] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [egitimDurum] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [egitimDurum] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [egitimDurum] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [egitimDurum] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [egitimDurum] SET RECOVERY FULL 
+GO
+ALTER DATABASE [egitimDurum] SET  MULTI_USER 
+GO
+ALTER DATABASE [egitimDurum] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [egitimDurum] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [egitimDurum] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [egitimDurum] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [egitimDurum] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [egitimDurum] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'egitimDurum', N'ON'
+GO
+ALTER DATABASE [egitimDurum] SET QUERY_STORE = OFF
+GO
+USE [egitimDurum]
+GO
+/****** Object:  Table [dbo].[bolumler]    Script Date: 11.03.2024 15:59:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[bolumler](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[bolumAdi] [varchar](35) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[digerEgitimler]    Script Date: 11.03.2024 15:59:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[digerEgitimler](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[kisiID] [int] NULL,
+	[okulID] [int] NULL,
+	[bolumID] [int] NULL,
+	[tipID] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[egitim]    Script Date: 11.03.2024 15:59:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[egitim](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[kisiID] [int] NULL,
+	[okulID] [int] NULL,
+	[bolumID] [int] NULL,
+	[tipID] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[kisiler]    Script Date: 11.03.2024 15:59:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[kisiler](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[AdSoyad] [varchar](35) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[okullar]    Script Date: 11.03.2024 15:59:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[okullar](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[okulAdi] [varchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[okulTipi]    Script Date: 11.03.2024 15:59:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[okulTipi](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[okulTipi] [varchar](20) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[bolumler] ON 
+GO
+INSERT [dbo].[bolumler] ([ID], [bolumAdi]) VALUES (7, N'Bilgisayar Mühendisliği')
+GO
+INSERT [dbo].[bolumler] ([ID], [bolumAdi]) VALUES (1, N'BİLGİSAYAR PROGRAMCILIĞI')
+GO
+INSERT [dbo].[bolumler] ([ID], [bolumAdi]) VALUES (6, N'Endüstri Mühendisliği')
+GO
+INSERT [dbo].[bolumler] ([ID], [bolumAdi]) VALUES (10, N'Hukuk')
+GO
+INSERT [dbo].[bolumler] ([ID], [bolumAdi]) VALUES (2, N'İŞLETME')
+GO
+INSERT [dbo].[bolumler] ([ID], [bolumAdi]) VALUES (8, N'Kimya Mühendisliği')
+GO
+INSERT [dbo].[bolumler] ([ID], [bolumAdi]) VALUES (11, N'Makina Mühendisliği')
+GO
+INSERT [dbo].[bolumler] ([ID], [bolumAdi]) VALUES (3, N'MUHASEBE')
+GO
+INSERT [dbo].[bolumler] ([ID], [bolumAdi]) VALUES (5, N'TARLA BİTKİLERİ')
+GO
+INSERT [dbo].[bolumler] ([ID], [bolumAdi]) VALUES (4, N'TESVİYE')
+GO
+INSERT [dbo].[bolumler] ([ID], [bolumAdi]) VALUES (9, N'Ziraat Mühendisliği')
+GO
+SET IDENTITY_INSERT [dbo].[bolumler] OFF
+GO
+SET IDENTITY_INSERT [dbo].[digerEgitimler] ON 
+GO
+INSERT [dbo].[digerEgitimler] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (1, 8, 1, 2, 2)
+GO
+INSERT [dbo].[digerEgitimler] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (2, 5, 11, 2, 2)
+GO
+INSERT [dbo].[digerEgitimler] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (3, 7, 4, 3, 2)
+GO
+INSERT [dbo].[digerEgitimler] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (4, 4, 10, 9, 2)
+GO
+INSERT [dbo].[digerEgitimler] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (5, 8, 4, 3, 2)
+GO
+SET IDENTITY_INSERT [dbo].[digerEgitimler] OFF
+GO
+SET IDENTITY_INSERT [dbo].[egitim] ON 
+GO
+INSERT [dbo].[egitim] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (1, 1, 4, 1, 2)
+GO
+INSERT [dbo].[egitim] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (2, 2, 1, 2, 2)
+GO
+INSERT [dbo].[egitim] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (3, 3, 2, 9, 2)
+GO
+INSERT [dbo].[egitim] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (4, 4, 5, 5, 3)
+GO
+INSERT [dbo].[egitim] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (5, 5, 9, 10, 2)
+GO
+INSERT [dbo].[egitim] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (6, 6, 3, 3, 2)
+GO
+INSERT [dbo].[egitim] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (7, 7, 6, 4, 6)
+GO
+INSERT [dbo].[egitim] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (8, 8, 10, 11, 2)
+GO
+INSERT [dbo].[egitim] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (9, 9, 2, 8, 2)
+GO
+INSERT [dbo].[egitim] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (10, 10, 9, 10, 2)
+GO
+INSERT [dbo].[egitim] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (11, 11, 3, 6, 2)
+GO
+INSERT [dbo].[egitim] ([ID], [kisiID], [okulID], [bolumID], [tipID]) VALUES (12, 12, 2, 2, 2)
+GO
+SET IDENTITY_INSERT [dbo].[egitim] OFF
+GO
+SET IDENTITY_INSERT [dbo].[kisiler] ON 
+GO
+INSERT [dbo].[kisiler] ([ID], [AdSoyad]) VALUES (1, N'ABDİ YILDIRIM')
+GO
+INSERT [dbo].[kisiler] ([ID], [AdSoyad]) VALUES (2, N'ABDİL TUNÇ')
+GO
+INSERT [dbo].[kisiler] ([ID], [AdSoyad]) VALUES (3, N'Ayşe Yılmaz')
+GO
+INSERT [dbo].[kisiler] ([ID], [AdSoyad]) VALUES (4, N'Mustafa Ekici')
+GO
+INSERT [dbo].[kisiler] ([ID], [AdSoyad]) VALUES (5, N'Ali Kartal')
+GO
+INSERT [dbo].[kisiler] ([ID], [AdSoyad]) VALUES (6, N'Zeynep Çetin')
+GO
+INSERT [dbo].[kisiler] ([ID], [AdSoyad]) VALUES (7, N'Kaan Güner')
+GO
+INSERT [dbo].[kisiler] ([ID], [AdSoyad]) VALUES (8, N'Bulut Ekici')
+GO
+INSERT [dbo].[kisiler] ([ID], [AdSoyad]) VALUES (9, N'Sude Şimşek')
+GO
+INSERT [dbo].[kisiler] ([ID], [AdSoyad]) VALUES (10, N'Emre Saral')
+GO
+INSERT [dbo].[kisiler] ([ID], [AdSoyad]) VALUES (11, N'Gülce Kaya')
+GO
+INSERT [dbo].[kisiler] ([ID], [AdSoyad]) VALUES (12, N'Serap Kınık')
+GO
+SET IDENTITY_INSERT [dbo].[kisiler] OFF
+GO
+SET IDENTITY_INSERT [dbo].[okullar] ON 
+GO
+INSERT [dbo].[okullar] ([ID], [okulAdi]) VALUES (1, N'ANADOLU ÜNİVERSİTESİ')
+GO
+INSERT [dbo].[okullar] ([ID], [okulAdi]) VALUES (9, N'Ankara Üniversitesi')
+GO
+INSERT [dbo].[okullar] ([ID], [okulAdi]) VALUES (11, N'Atatürk Üniversitesi')
+GO
+INSERT [dbo].[okullar] ([ID], [okulAdi]) VALUES (3, N'BİNGÖL ÜNİVERSİTESİ')
+GO
+INSERT [dbo].[okullar] ([ID], [okulAdi]) VALUES (4, N'DİCLE ÜNİVERSİTESİ')
+GO
+INSERT [dbo].[okullar] ([ID], [okulAdi]) VALUES (2, N'GAZİANTEP ÜNİVERSİTESİ')
+GO
+INSERT [dbo].[okullar] ([ID], [okulAdi]) VALUES (7, N'İLKOKUL')
+GO
+INSERT [dbo].[okullar] ([ID], [okulAdi]) VALUES (10, N'İstanbul Üniversitesi')
+GO
+INSERT [dbo].[okullar] ([ID], [okulAdi]) VALUES (8, N'MESLEK LİSESİ')
+GO
+INSERT [dbo].[okullar] ([ID], [okulAdi]) VALUES (5, N'MESLEK YÜKSEK OKULU')
+GO
+INSERT [dbo].[okullar] ([ID], [okulAdi]) VALUES (6, N'ORTAOKUL')
+GO
+SET IDENTITY_INSERT [dbo].[okullar] OFF
+GO
+SET IDENTITY_INSERT [dbo].[okulTipi] ON 
+GO
+INSERT [dbo].[okulTipi] ([ID], [okulTipi]) VALUES (5, N'İLKOKUL')
+GO
+INSERT [dbo].[okulTipi] ([ID], [okulTipi]) VALUES (4, N'LİSE')
+GO
+INSERT [dbo].[okulTipi] ([ID], [okulTipi]) VALUES (6, N'ORTAOKUL')
+GO
+INSERT [dbo].[okulTipi] ([ID], [okulTipi]) VALUES (2, N'ÜNİVERSİTE')
+GO
+INSERT [dbo].[okulTipi] ([ID], [okulTipi]) VALUES (3, N'YÜKSEKOKUL')
+GO
+SET IDENTITY_INSERT [dbo].[okulTipi] OFF
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UQ__bolumler__FC0F67D185D16351]    Script Date: 11.03.2024 15:59:01 ******/
+ALTER TABLE [dbo].[bolumler] ADD UNIQUE NONCLUSTERED 
+(
+	[bolumAdi] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [UQ__egitim__B8B2CC1DBD771EAB]    Script Date: 11.03.2024 15:59:01 ******/
+ALTER TABLE [dbo].[egitim] ADD UNIQUE NONCLUSTERED 
+(
+	[kisiID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UQ__okullar__0658F44B4B46DC1F]    Script Date: 11.03.2024 15:59:01 ******/
+ALTER TABLE [dbo].[okullar] ADD UNIQUE NONCLUSTERED 
+(
+	[okulAdi] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UQ__okulTipi__85D3162126A1C263]    Script Date: 11.03.2024 15:59:01 ******/
+ALTER TABLE [dbo].[okulTipi] ADD UNIQUE NONCLUSTERED 
+(
+	[okulTipi] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[digerEgitimler]  WITH CHECK ADD FOREIGN KEY([bolumID])
+REFERENCES [dbo].[bolumler] ([ID])
+GO
+ALTER TABLE [dbo].[digerEgitimler]  WITH CHECK ADD FOREIGN KEY([okulID])
+REFERENCES [dbo].[okullar] ([ID])
+GO
+ALTER TABLE [dbo].[digerEgitimler]  WITH CHECK ADD FOREIGN KEY([kisiID])
+REFERENCES [dbo].[kisiler] ([ID])
+GO
+ALTER TABLE [dbo].[digerEgitimler]  WITH CHECK ADD FOREIGN KEY([tipID])
+REFERENCES [dbo].[okulTipi] ([ID])
+GO
+ALTER TABLE [dbo].[egitim]  WITH CHECK ADD FOREIGN KEY([bolumID])
+REFERENCES [dbo].[bolumler] ([ID])
+GO
+ALTER TABLE [dbo].[egitim]  WITH CHECK ADD FOREIGN KEY([okulID])
+REFERENCES [dbo].[okullar] ([ID])
+GO
+ALTER TABLE [dbo].[egitim]  WITH CHECK ADD FOREIGN KEY([kisiID])
+REFERENCES [dbo].[kisiler] ([ID])
+GO
+ALTER TABLE [dbo].[egitim]  WITH CHECK ADD FOREIGN KEY([tipID])
+REFERENCES [dbo].[okulTipi] ([ID])
+GO
+/****** Object:  StoredProcedure [dbo].[ConvertBinaryToDecimal]    Script Date: 11.03.2024 15:59:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE   PROCEDURE [dbo].[ConvertBinaryToDecimal] AS
+BEGIN
+    DECLARE @v_bnumber VARCHAR(200); -- Binary sayıyı tutmak için 
+    DECLARE @v_dnumber BIGINT; -- Decimal sayıyı tutmak için 
+    DECLARE @v_counter INT = 0; -- Döngü için sayacı
+
+    -- Örnek Binary sayı
+    SET @v_bnumber = '110101';
+
+    -- Döngü ile binary sayıyı decimal olarak çevirin ve sonuçları yazın
+    WHILE @v_counter < 200
+    BEGIN
+        SET @v_dnumber = 0; -- Decimal sayı sıfırlanır her seferinde
+        DECLARE @j INT = LEN(@v_bnumber);  
+        WHILE @j > 0
+        BEGIN
+            SET @v_dnumber += CAST(SUBSTRING(@v_bnumber, @j, 1) AS INT) * POWER(2, @j - 1);
+            SET @j -= 1;
+        END;
+
+        -- Sonuc
+        PRINT 'Binary Number: ' + @v_bnumber + 'Decimal Number: ' + CAST(@v_dnumber AS VARCHAR(20));
+ 
+        -- Bir sonraki binary sayıya geçilir
+        SET @v_bnumber = RIGHT('000000' + CAST(CAST(@v_bnumber AS BIGINT) + 1 AS VARCHAR(6)), 6);
+        SET @v_counter += 1;
+
+        -- 200 kere dönüldüğünde döngüyü sonlandır
+        IF @v_counter >= 200
+            BREAK;
+    END;
+END;
+GO
+USE [master]
+GO
+ALTER DATABASE [egitimDurum] SET  READ_WRITE 
+GO
