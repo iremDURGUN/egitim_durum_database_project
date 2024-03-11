@@ -3,8 +3,8 @@ import pypyodbc
 # egitimDurum DATABASE'ne bağlanılır.
 database = pypyodbc.connect(
     "DRIVER={SQL Server};"
-    "Server=DESKTOPNAME;"
-    "Database=egitimDurum;"
+    "Server=DESKTOPNAME;"   # Bilgisayarınızın server adını yazmanız gerekmektedir.
+    "Database=egitimDurum;"  # Oluşturduğunuz Database ismini girmeniz gerekmektedir.
     "Trusted_Connection=True;"
 )
 cursor = database.cursor()
