@@ -3,7 +3,7 @@ import pypyodbc
 # egitimDurum DATABASE'ne bağlanılır.
 database = pypyodbc.connect(
     "DRIVER={SQL Server};"
-    "Server=DESKTOP-V185J6Q;"
+    "Server=DESKTOPNAME;"
     "Database=egitimDurum;"
     "Trusted_Connection=True;"
 )
