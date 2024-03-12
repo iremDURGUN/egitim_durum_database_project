@@ -34,7 +34,7 @@ def tabloOlustur():
                    "okulID INT,"
                    "bolumID INT,"
                    "tipID INT,"
-                   "FOREIGN KEY (sicilID) REFERENCES kisiler (ID), "
+                   "FOREIGN KEY (kisiID) REFERENCES kisiler (ID), "
                    "FOREIGN KEY (okulID) REFERENCES okullar (ID), "
                    "FOREIGN KEY (bolumID) REFERENCES bolumler (ID),"
                    "FOREIGN KEY (tipID) REFERENCES okulTipi (ID) )")
@@ -45,7 +45,7 @@ def tabloOlustur():
                    "okulID INT,"
                    "bolumID INT,"
                    "tipID INT,"
-                   "FOREIGN KEY (sicilID) REFERENCES kisiler (ID), "
+                   "FOREIGN KEY (kisiID) REFERENCES kisiler (ID), "
                    "FOREIGN KEY (okulID) REFERENCES okullar (ID), "
                    "FOREIGN KEY (bolumID) REFERENCES bolumler (ID),"
                    "FOREIGN KEY (tipID) REFERENCES okulTipi (ID) )")
