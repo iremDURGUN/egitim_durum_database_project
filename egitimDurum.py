@@ -3,8 +3,8 @@ import pypyodbc
 # egitimDurum DATABASE'ne bağlanılır.
 database = pypyodbc.connect(
     "DRIVER={SQL Server};"
-    "Server=DESKTOPNAME;"   # Bilgisayarınızın server adını yazmanız gerekmektedir.
-    "Database=egitimDurum;"  # Oluşturduğunuz Database ismini girmeniz gerekmektedir.
+    "Server=DESKTOP-V185J6Q;"
+    "Database=egitimDurum;"
     "Trusted_Connection=True;"
 )
 cursor = database.cursor()
@@ -61,66 +61,38 @@ def tabloOlustur():
 
 # Kişiler tablosuna veri girişi için
 def kisilerEkle(x):
-    cursor.execute("INSERT INTO kisiler (AdSoyad) VALUES ('" + x + "')")
+    cursor.execute(f"INSERT INTO kisiler (AdSoyad) VALUES ({x})")
     cursor.commit()
 
 
 # okullar tablosuna veri girişi için
 def okulEkle(x):
-    cursor.execute("INSERT INTO okullar (okulAdi) VALUES ('" + x + "')")
+    cursor.execute(f"INSERT INTO okullar (okulAdi) VALUES ({x})")
     cursor.commit()
 
 
 # bolumler tablosuna veri girişi için
 def bolumEkle(x):
-    cursor.execute("INSERT INTO bolumler (bolumAdi) VALUES ('" + x + "')")
+    cursor.execute(f"INSERT INTO bolumler (bolumAdi) VALUES ({x})")
     cursor.commit()
 
 
 # okulTipi tablosuna veri girişi için
 def okulTipiEkle(x):
-    cursor.execute("INSERT INTO okulTipi (okulTipi) VALUES ('" + x + "')")
+    cursor.execute(f"INSERT INTO okulTipi (okulTipi) VALUES ({x})")
     cursor.commit()
 
 
-# x = hangi kolona, y = hangi ID' yi ,z = hangi sicildeki kişiye veri eklemek istediğimizin verisini tutar.
-# okulID, bolumID, tipID kolonlarının verilerini girerken UPDATE methodunu kullanıyoruz
-# çünkü veri girişi sağlamak istediğimiz bir sicilID' de kişi vardır. Bu sebeple WHERE ile sicilID' yi belirtmeliyiz.
+# x = kisiID, y = okulID, z = bolumID, k = tipID verisini tutar.
 # egitim tablosuna veri girişi için
-def egitimEkle(x, y, z):
-    if x == "kisiID":
-        cursor.execute("INSERT INTO egitim (kisiID) VALUES ('" + y + "')")
-    elif x == "okulID":
-        cursor.execute("UPDATE egitim SET okulID = '" + y + "' WHERE kisiID = '" + z + "' ")
-    elif x == "bolumID":
-        cursor.execute("UPDATE egitim SET bolumID = '" + y + "' WHERE kisiID = '" + z + "' ")
-    elif x == "tipID":
-        cursor.execute("UPDATE egitim SET tipID = '" + y + "' WHERE kisiID = '" + z + "' ")
+def egitimEkle(x, y, z, k):
+    cursor.execute(f"INSERT INTO egitim (kisiID, okulID, bolumID, tipID) VALUES ({x}, {y}, {z}, {k})")
     cursor.commit()
 
 
-# okulID, bolumID, tipID kolonlarının verilerini girerken WHERE methoduyla bir koşul daha belirtmek zorunda kalırız
-# çünkü tabloda aynı sicilI' de birden çok satır olabilir.
-# Bu nedenle tablodaki en büyük ID' yi seçeriz ki en son eklenen satır üstünde veri girişi yapabilelim.
 # digerEgitimler tablosuna veri girişi için
-def digerEgitimEkle(x, y, z):
-    if x == "kisiID":
-        cursor.execute("INSERT INTO digerEgitimler (kisiID) VALUES ('" + y + "')")
-    elif x == "okulID":
-        cursor.execute("UPDATE digerEgitimler SET okulID = '" + y + "' "
-                                                                    "WHERE kisiID = '" + z + "' AND "
-                                                                                             "ID = (SELECT MAX(ID) "
-                                                                                             "FROM digerEgitimler) ")
-    elif x == "bolumID":
-        cursor.execute("UPDATE digerEgitimler SET bolumID = '" + y + "' "
-                                                                     "WHERE kisiID = '" + z + "' AND "
-                                                                                              "ID = (SELECT MAX(ID) "
-                                                                                              "FROM digerEgitimler) ")
-    elif x == "tipID":
-        cursor.execute("UPDATE digerEgitimler SET tipID = '" + y + "' "
-                                                                   "WHERE kisiID = '" + z + "' AND "
-                                                                                            "ID = (SELECT MAX(ID) "
-                                                                                            "FROM digerEgitimler) ")
+def digerEgitimEkle(x, y, z, k):
+    cursor.execute(f"INSERT INTO digerEgitimler (kisiID, okulID, bolumID, tipID) VALUES ({x}, {y}, {z}, {k})")
     cursor.commit()
 
 
@@ -144,8 +116,15 @@ d = cursor.execute("SELECT k.AdSoyad, o.okulAdi, b.bolumAdi FROM digerEgitimler 
                    "INNER JOIN bolumler AS b ON d.bolumID = b.ID "
                    "ORDER BY d.kisiID")
 
+# Toplamda üniversite okuyan kişi sayısı??
+e = cursor.execute("SELECT COUNT(e.tipID) + COUNT(d.tipID) "
+                   "FROM digerEgitimler AS d "
+                   "INNER JOIN kisiler AS k ON d.kisiID = k.ID "
+                   "INNER JOIN egitim AS e ON k.ID = e.kisiID "
+                   "WHERE d.tipID = 2 AND e.tipID = 2 GROUP BY e.tipID, d.tipID ")
+
 # Çalışılacak sorguyu döndürür
-for e in d:
-    print(e)
+for p in e:
+    print(p)
 
 database.close()
