@@ -98,33 +98,33 @@ def digerEgitimEkle(x, y, z, k):
 
 # digerEgitimEkle("okulID", "4", "8")
 # tüm tablo bilgilerini almak için kullanırız
-a = cursor.execute("SELECT * FROM digerEgitimler ORDER BY ID")
+a = cursor.execute("SELECT * FROM digerEgitimler ORDER BY ID").fetchall()
 
 # Birden fazla üniversite okuyan kişilerin isimlerini döndürür.
-b = cursor.execute("SELECT DISTINCT(k.AdSoyad) FROM digerEgitimler AS d INNER JOIN kisiler AS k ON d.kisiID = k.ID")
+b = cursor.execute("SELECT DISTINCT(k.AdSoyad) FROM digerEgitimler AS d INNER JOIN kisiler AS k ON d.kisiID = k.ID").fetchall()
 
 # diger egitim tablosunda bir' den fazla okul okuyan kişilerin bilgileri
 # ya da toplamda iki' den fazla okul okuyan kişilerin bilgileri
 c = cursor.execute("SELECT COUNT(d.kisiID), k.AdSoyad FROM digerEgitimler AS d "
                    "INNER JOIN kisiler AS k ON d.kisiID = k.ID "
-                   "GROUP BY kisiID, k.AdSoyad HAVING COUNT(d.kisiID) > 1")
+                   "GROUP BY kisiID, k.AdSoyad HAVING COUNT(d.kisiID) > 1").fetchall()
 
 # toplamda birden' den fazla okul okuyan kişilerin okul,bolum,kişilik bilgileri
 d = cursor.execute("SELECT k.AdSoyad, o.okulAdi, b.bolumAdi FROM digerEgitimler AS d "
                    "INNER JOIN kisiler AS k ON d.kisiID = k.ID "
                    "INNER JOIN okullar AS o ON d.okulID = o.ID "
                    "INNER JOIN bolumler AS b ON d.bolumID = b.ID "
-                   "ORDER BY d.kisiID")
+                   "ORDER BY d.kisiID").fetchall()
 
 # Toplamda üniversite okuyan kişi sayısı??
 e = cursor.execute("SELECT COUNT(e.tipID) + COUNT(d.tipID) "
                    "FROM digerEgitimler AS d "
                    "INNER JOIN kisiler AS k ON d.kisiID = k.ID "
                    "INNER JOIN egitim AS e ON k.ID = e.kisiID "
-                   "WHERE d.tipID = 2 AND e.tipID = 2 GROUP BY e.tipID, d.tipID ")
+                   "WHERE d.tipID = 2 AND e.tipID = 2 GROUP BY e.tipID, d.tipID ").fetchall()
 
 # Çalışılacak sorguyu döndürür
-for p in e:
+for p in a:
     print(p)
 
 database.close()
