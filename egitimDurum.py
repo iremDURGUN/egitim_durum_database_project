@@ -1,15 +1,19 @@
 import pypyodbc
 
+# Çalışmaya başlamadan önce Server bilgisine kendi Server bilginizi yazmayı unutmayın!
 # egitimDurum DATABASE'ne bağlanılır.
 database = pypyodbc.connect(
     "DRIVER={SQL Server};"
-    "Server=DESKTOP-V185J6Q;"
+    "Server=ServerName;"
     "Database=egitimDurum;"
     "Trusted_Connection=True;"
 )
 cursor = database.cursor()
 
-
+# Önemli!! 
+# egitimDbExportWithData.txt dosyasını direkt olarak MSSQL' de çalıştırırsanız veri tabanını veriler ile birlikte oluşturabilirsiniz.
+# Eğer tabloları ve verileri kendiniz oluşturmak isterseniz veritabanını MSSQL' de oluşturup 
+# buradan da ilgili fonksiyonları çalıştırarak bu işlemleri yapabilirsiniz. 
 # Tabloları olusturduğumuz sorguları yazarız
 def tabloOlustur():
     # Kişilerin tutulacağı bir tablo oluştur
