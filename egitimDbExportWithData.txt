@@ -362,44 +362,7 @@ GO
 ALTER TABLE [dbo].[egitim]  WITH CHECK ADD FOREIGN KEY([tipID])
 REFERENCES [dbo].[okulTipi] ([ID])
 GO
-/****** Object:  StoredProcedure [dbo].[ConvertBinaryToDecimal]    Script Date: 11.03.2024 15:59:01 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE   PROCEDURE [dbo].[ConvertBinaryToDecimal] AS
-BEGIN
-    DECLARE @v_bnumber VARCHAR(200); -- Binary sayıyı tutmak için 
-    DECLARE @v_dnumber BIGINT; -- Decimal sayıyı tutmak için 
-    DECLARE @v_counter INT = 0; -- Döngü için sayacı
 
-    -- Örnek Binary sayı
-    SET @v_bnumber = '110101';
-
-    -- Döngü ile binary sayıyı decimal olarak çevirin ve sonuçları yazın
-    WHILE @v_counter < 200
-    BEGIN
-        SET @v_dnumber = 0; -- Decimal sayı sıfırlanır her seferinde
-        DECLARE @j INT = LEN(@v_bnumber);  
-        WHILE @j > 0
-        BEGIN
-            SET @v_dnumber += CAST(SUBSTRING(@v_bnumber, @j, 1) AS INT) * POWER(2, @j - 1);
-            SET @j -= 1;
-        END;
-
-        -- Sonuc
-        PRINT 'Binary Number: ' + @v_bnumber + 'Decimal Number: ' + CAST(@v_dnumber AS VARCHAR(20));
- 
-        -- Bir sonraki binary sayıya geçilir
-        SET @v_bnumber = RIGHT('000000' + CAST(CAST(@v_bnumber AS BIGINT) + 1 AS VARCHAR(6)), 6);
-        SET @v_counter += 1;
-
-        -- 200 kere dönüldüğünde döngüyü sonlandır
-        IF @v_counter >= 200
-            BREAK;
-    END;
-END;
-GO
 USE [master]
 GO
 ALTER DATABASE [egitimDurum] SET  READ_WRITE 
