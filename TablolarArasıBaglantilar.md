@@ -22,7 +22,7 @@ Bire – Bir ilişki’ yi örnek üzerinden anlatırsak eğer; kisiler tablosun
 Kişi çalıştığı kuruma sadece mezun olduğu bir eğitim bilgisi ile atanabilir. Yani egitim tablosunda kişinin bir mezuniyet bilgisi bulunur ve birden fazla eğitim bilgisi girilmesine izin verilmez.
 Bu da iki tablo arasında bire – bir ilişki olmasını sağlar.
 
-* Eğer tablolar arasındaki bağlantıların diagramını incelemek isterseniz [egitimDurumDiagram](https://github.com/iremDURGUN/egitim_durum_database_project/blob/main/egitimDurumDiagram%20-%20Microsoft%20SQL%20Server%20Management%20Studio%2013.03.2024%2010_23_16.png) dosyasına giderek inceleyebilirsiniz..
+* Eğer tablolar arasındaki bağlantıların diagramını incelemek isterseniz [egitimDurumDiagram](https://github.com/iremDURGUN/egitim_durum_database_project/blob/main/egitimDurumDiagram%20-%20Microsoft%20SQL%20Server%20Management%20Studio%2013.03.2024%2010_23_16.png) dosyasına giderek inceleyebilirsiniz.
 
 
 
